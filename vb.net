@@ -1,0 +1,75 @@
+'Scan all primitive data types
+Imports System
+
+
+Public Class RockPaperScissorsTester
+
+    ' This program makes the user play rock paper and scissors with the AI.
+    ' @author Michias Shiferaw
+    ' @Version 2.0
+    ' @since 2020-03-10.
+
+    Private Sub btnOperate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOperate.Click
+        'variables
+        Dim replay As Boolean = False
+        Dim rpsString As String = ""
+        Dim rndVal As New Random()
+        Dim aiRandNum As Integer = rndVal.Next(3) + 1
+        Dim userPlayer As Integer = 0
+        Dim redoString As String
+        Do While replay = False
+
+            Dim userRandNum As String
+            userRandNum = InputBox("Choose rock(1), paper(2), or scissors(3) to play against the computer.")
+
+            Dim userInputString As String = userRandNum.ToLower()
+
+            If aiRandNum = 1 Then
+                rpsString = "rock"
+            ElseIf aiRandNum = 2 Then
+                rpsString = "paper"
+            ElseIf aiRandNum = 3 Then
+                rpsString = "scissors"
+            End If
+
+
+
+            If (userInputString = "rock" Or userInputString = "paper" Or userInputString = "scissor" Or userInputString = "scissors") Then
+
+                'Convert the words of rps to numerical value
+                If userInputString = "rock" Then
+                    userPlayer = 1
+                ElseIf userInputString = "paper" Then
+                    userPlayer = 2
+                Else
+                    userPlayer = 3
+                End If
+                If userPlayer = aiRandNum Then
+                    MsgBox(" You put a " & userInputString & " and the computer put " & rpsString + ". You tied")
+                ElseIf aiRandNum = userPlayer + 1 Or aiRandNum = userPlayer - 2 Then
+                    MsgBox("You put a " & userInputString & " and the computer put " & rpsString + ". You lose!")
+                Else
+                    MsgBox("You put a " & userInputString & " and the computer put " & rpsString + ". You win!")
+                End If
+            Else
+                MsgBox("Sorry " & userInputString & " is not an option in RPS. Bye Bye")
+                'Close the program as the value inputted is not qualified to continue through the program
+                Me.Close()
+            End If
+
+            'Ask the user if they want to replay
+            redoString = InputBox("Play again? ""Yes"" or ""No""")
+
+
+
+            If redoString = "Yes" Or redoString = "yes" Then
+                replay = replay
+            End If
+            If redoString = "No" Or redoString = "no" Then
+                replay = Not replay
+                MsgBox("Bye Bye!")
+                Me.Close()
+            End If
+        Loop
+    End Sub
+End Class
